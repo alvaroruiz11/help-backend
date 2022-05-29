@@ -12,13 +12,13 @@ const login = async (req, res = response) => {
     const usuario = await Usuario.findOne({ correo });
 
     if( !usuario ){
-        return res.json( 401 ).json({
+        return res.status( 401 ).json({
             msg:'Usuario / Password - usuario no existe DB'
         })
     }
 
     if( !usuario.estado ){
-        return res.json( 401 ).json({
+        return res.status( 401 ).json({
             msg:'Usuario / Password - estado: false'
         })
     }
@@ -26,7 +26,7 @@ const login = async (req, res = response) => {
     const validarPassword = bcrypt.compareSync( password, usuario.password );
 
     if( !validarPassword ){
-        return res.json( 401 ).json({
+        return res.status( 401 ).json({
             msg:'Usuario / Password - password incorrecto'
         })
     }
